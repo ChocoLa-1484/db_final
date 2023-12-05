@@ -16,7 +16,7 @@ class ChampionController extends BaseController{
                     $this->getAllChampions();
                     break;
                 case 'getChampionStatus':
-                    $this->getChampionStatus($championName);
+                    //$this->getChampionStatus($championName);
                     break;
                 default:
                     break;
@@ -29,6 +29,8 @@ class ChampionController extends BaseController{
     }
     private function getAllChampions() {
         $result = $this->championModel->getAllChampions();
-        $this->sendOutput($result);
+        $this->sendOutput(json_encode($result));
     }
 }
+$test = new ChampionController();
+$test->handleRequest();
