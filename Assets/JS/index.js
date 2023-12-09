@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let showAllChampionsBtn = document.getElementById("showAllChampions");
     
-    showAllChampionsBtn.addEventListener("click", () => {
+    window.addEventListener("load", () => {
         getAllChampions();
     });
     
     function getAllChampions () {
         let testForm = new FormData();
         testForm.append("action", "getAllChampions");
-        fetch("../../Controller/Api/ChampionController.php", {
+        fetch("Controller/Api/ChampionController.php", {
             method: "POST",
             body: testForm
         })
@@ -21,7 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Display champion names
                 data.forEach(championName => {
                     let championItem = document.createElement("div");
-                    championItem.textContent = championName;
+                    let championItemIcon = document.createElement("div");
+                    let championItemName = document.createElement("div");
+                    championItem.className = "champion"
+                    championItemIcon.innerHTML = '<img src="Images/' + championName + '.jpg" class="championIcon">';
+                    championItemName.innerHTML = '<p class="championName">' + championName + '</p>'
+                    championItem.appendChild(championItemIcon);
+                    championItem.appendChild(championItemName);
                     championInfoElement.appendChild(championItem);
                 });
             }
