@@ -22,11 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     let championItem = document.createElement("div");
                     let championItemIcon = document.createElement("div");
                     let championItemName = document.createElement("div");
+<<<<<<< HEAD
                     
                     championItem.className = "champion";
                     championItemIcon.innerHTML = '<img src="Images/' + championName + '.jpg" class="championIcon">';
                     championItemName.innerHTML = '<p class="championName">' + championName + '</p>';
                     
+=======
+                    championItem.className = "champion"
+                    championItemIcon.innerHTML = '<img src="Images/' + championName + '.jpg" class="championIcon">';
+                    championItemName.innerHTML = '<p class="championName">' + championName + '</p>'
+>>>>>>> d4bbc11fc9c74cca0906468177a08cdb834940a3
                     championItem.appendChild(championItemIcon);
                     championItem.appendChild(championItemName);
                     championInfoElement.appendChild(championItem);

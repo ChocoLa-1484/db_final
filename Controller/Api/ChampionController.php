@@ -16,6 +16,7 @@ class ChampionController extends BaseController{
                     $this->getAllChampions();
                     break;
                 case 'getChampionStatus':
+<<<<<<< HEAD
                     $this->getChampionStatus();
                     break;
                 case 'getSelectedChampion':
@@ -23,6 +24,9 @@ class ChampionController extends BaseController{
                     break;
                 case 'setSelectedChampion':
                     $this->setSelectedChampion();
+=======
+                    //$this->getChampionStatus($championName);
+>>>>>>> d4bbc11fc9c74cca0906468177a08cdb834940a3
                     break;
                 default:
                     break;
@@ -38,6 +42,7 @@ class ChampionController extends BaseController{
         $result = $this->championModel->getAllChampions();
         $this->sendOutput(json_encode($result));
     }
+<<<<<<< HEAD
     private function getSelectedChampion() {
         if (isset($_SESSION['selectedChampion'])) {
             $selectedChampion = $_SESSION['selectedChampion'];  
@@ -50,6 +55,8 @@ class ChampionController extends BaseController{
         $selectedChampion = isset($_POST["selectedChampion"]) ? $_POST["selectedChampion"] : null;
         $_SESSION["selectedChampion"] = $selectedChampion;
     }
+=======
+>>>>>>> d4bbc11fc9c74cca0906468177a08cdb834940a3
 }
 $test = new ChampionController();
 $test->handleRequest();
