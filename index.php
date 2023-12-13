@@ -3,11 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <script src="Assets/JS/index.js"></script>
-        <title>123</title>
+        <title>Choose your champion</title>
         <link rel="shortcut icon" href="#">
+        <link rel="stylesheet" href="CSS/index.css">
     </head>
-    <body>
-        <button id="showAllChampions">start</button>
-        <div id="championInfo"></div>
+    <body background="Images/Summoner's rift.webp" id="championInfo">
     </body>
 </html>
