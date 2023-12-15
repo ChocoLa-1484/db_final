@@ -28,8 +28,12 @@
             <td id="mpValue"></td>
         </tr>
         <tr>
-            <th>DMG</th>
-            <td id="dmgValue"></td>
+            <th>AD</th>
+            <td id="adValue"></td>
+        </tr>
+        <tr>
+            <th>AP</th>
+            <td id="apValue"></td>
         </tr>
         <tr>
             <th>AR</th>
@@ -59,6 +63,7 @@
             <th>Damage</th>
             <th>Cool Down</th>
             <th>Dmg Type</th>
+            <th>Level</th>
         </tr>
         <tr>
             <td><img id="skillImg1" alt="None"></td>
@@ -67,6 +72,9 @@
             <td id="dmg1"></td>
             <td id="cd1"></td>
             <td id="dmgType1"></td>
+            <td>
+                <select id="skillSelect1"></select>
+            </td>
         </tr>
         <tr>
             <td><img id="skillImg2" alt="None"></td>
@@ -75,6 +83,9 @@
             <td id="dmg2"></td>
             <td id="cd2"></td>
             <td id="dmgType2"></td>
+            <td>
+                <select id="skillSelect2"></select>
+            </td>
         </tr>
         <tr>
             <td><img id="skillImg3" alt="None"></td>
@@ -83,6 +94,9 @@
             <td id="dmg3"></td>
             <td id="cd3"></td>
             <td id="dmgType3"></td>
+            <td>
+                <select id="skillSelect3"></select>
+            </td>
         </tr>
         <tr>
             <td><img id="skillImg4" alt="None"></td>
@@ -91,6 +105,9 @@
             <td id="dmg4"></td>
             <td id="cd4"></td>
             <td id="dmgType4"></td>
+            <td>
+                <select id="skillSelect4"></select>
+            </td>
         </tr>
     </table>
     

@@ -1,22 +1,54 @@
 document.addEventListener('DOMContentLoaded', function() {   
     generateLevel();
+    generateSkillLevel();
     getSelectedChampion();
-    let levelSelect = document.getElementById('levelSelect');
-    levelSelect.addEventListener('change', updateStatus);
+
+    let championBase;
+    let skillBase = {};
+    let championStatus;
     
     function generateLevel() {
-        var levelSelect = document.getElementById('levelSelect');
-
-        for (var level = 1; level <= 18; level++) {
-            var option = document.createElement('option');
-            option.value = level;
-            option.text = level;
+        for (let level = 1; level <= 18; level++) {
+            let levelSelect = document.getElementById('levelSelect');
+            levelSelect.addEventListener('change', (event) => {
+                updateChampionStatus(event, championBase);
+                ['Q', 'W', 'E', 'R'].forEach ((button) => {
+                    updateSkill(skillBase, championStatus, button);
+                });
+            });
+            
+            let option = document.createElement('option');
+            option.innerHTML = level;
             levelSelect.add(option);
         }
     }
-    
+
+    function generateSkillLevel() {
+        for (let index = 1; index <= 3; index++) {
+            let skillSelect = document.getElementById('skillSelect' + index);
+
+            for (let level = 1; level <= 5; level++) {
+                let option = document.createElement('option');
+                option.innerHTML = level;
+                skillSelect.add(option);
+            }
+        }
+        let skillSelect = document.getElementById('skillSelect4');
+        for (let level = 1; level <= 3; level++) {
+            let option = document.createElement('option');
+            option.innerHTML = level;
+            skillSelect.add(option);
+        }
+        
+        ['Q', 'W', 'E', 'R'].forEach((button, index) => {
+            let skillSelect = document.getElementById('skillSelect' + (index + 1));
+            skillSelect.addEventListener('change', () => {
+                updateSkill(skillBase, championStatus, button);
+            });
+        });
+    }
+
     let selectedChampion;
-    
     function getSelectedChampion() {
         let selectedChampionElement = document.getElementById('selectedChampion');
         let selectedChampionImg = document.getElementById('selectedChampionImg');
@@ -32,24 +64,14 @@ document.addEventListener('DOMContentLoaded', function() {
             selectedChampionElement.innerHTML = 'Selected Champion: ' + data;
             selectedChampionImg.src = 'Images/' + data + '.webp';
             selectedChampion = data;
-            getChampionStatus();
-            getChampionSkills();
+            getChampionBase();
         })
         .catch(error => {
             console.error('Error:', error);
         });
     }
     
-    let hpBase = document.getElementById('hpValue');
-    let mpBase = document.getElementById('mpValue');
-    let dmgBase = document.getElementById('dmgValue');
-    let arBase = document.getElementById('arValue');
-    let mrBase = document.getElementById('mrValue');
-    let spdBase = document.getElementById('spdValue');
-    let hasteBase = document.getElementById('hasteValue');
-    let hpBonus, mpBonus, dmgBonus, arBonus, mrBonus, spdBonus = 0, hasteBonus = 0;
-    
-    function getChampionStatus() {      
+    function getChampionBase() {      
         let testForm = new FormData();
         testForm.append("action", "getChampionStatus");
         testForm.append("selectedChampion", selectedChampion);
@@ -59,53 +81,38 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            hpBase = data[1];
-            hpBonus = data[2];
-            mpBase = data[3];
-            mpBonus = data[4];
-            dmgBase = data[5];
-            dmgBonus = data[6];
-            arBase = data[7];
-            arBonus = data[8];
-            mrBase = data[9];
-            mrBonus = data[10];
-            spdBase = data[12];
-            hasteBase = data[13];
-            updateStatus();
+            let hpBase = data[1];
+            let hpBonus = data[2];
+            let mpBase = data[3];
+            let mpBonus = data[4];
+            let adBase = data[5];
+            let adBonus = data[6];
+            let apBase = 0;
+            let apBonus = 0;
+            let arBase = data[7];
+            let arBonus = data[8];
+            let mrBase = data[9];
+            let mrBonus = data[10];
+            let spdBase = data[11];
+            let spdBonus = 0;
+            let hasteBase = 0;
+            let hasteBonus = 0;
+            
+            championBase = {
+                hpBase, hpBonus, mpBase, mpBonus, adBase, adBonus, apBase, apBonus, arBase, 
+                arBonus, mrBase, mrBonus, spdBase, spdBonus, hasteBase, hasteBonus
+            };
+            
+            const virtualEvent = {
+                target: {
+                    value: 1
+                }
+            };
+            updateChampionStatus(virtualEvent, championBase);
+            getChampionSkills();
         })
         .catch(error => {
             console.error('Error fetching champion status:', error);
-        });
-    }
-    
-    function getChampionSkills() {
-        ['Q','W','E','R'].forEach((button, index) => {
-            let testForm = new FormData();
-            testForm.append("action", "getChampionSkill");
-            testForm.append("selectedChampion", selectedChampion);
-            testForm.append("button", button);
-            fetch("Controller/Api/ChampionController.php", {
-                method: "POST",
-                body: testForm
-            })
-            .then(response => response.json())
-            .then(data => {
-                let skillImg = document.getElementById('skillImg' + (index + 1).toString());
-                let skillName = document.getElementById('skillName' + (index + 1).toString());
-                let button = document.getElementById('button' + (index + 1).toString());
-                let dmg = document.getElementById('dmg' + (index + 1).toString());
-                let cd = document.getElementById('cd' + (index + 1).toString());
-                let dmgType = document.getElementById('dmgType' + (index + 1).toString());
-                skillImg.src = "Images/" + data[21] + '.webp';
-                skillName.textContent = data[21];
-                button.textContent = data[20];
-                dmg.textContent = data[22];
-                cd.textContent = data[28];
-                dmgType.textContent = data[30];
-            })
-            .catch(error => {
-                console.error('Error fetching champion status:', error);
-            }); 
         });
     }
     
@@ -115,7 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let item4 = document.getElementById('item4');
     let item5 = document.getElementById('item5');
     let item6 = document.getElementById('item6');
-    let hpOther = 0, mpOther = 0, adOther = 0, apOther = 0, arOther = 0, mrOther = 0, spdOther = 0, hasteOther = 0;
+    // 2科小符文適性 18 * 0.6 1科物防
+    let hpOther = 0, mpOther = 0, adOtherValue = 18 * 0.6, apOtherValue = 0, arOtherValue = 6, mrOtherValue = 0, spdOtherValue = 0, hasteOther = 0;
     function getItem() {
 //        item1.textContent = data[14];
 //        item2.textContent = data[15];
@@ -125,24 +133,148 @@ document.addEventListener('DOMContentLoaded', function() {
 //        item6.textContent = data[19];
     }
     
-    function updateStatus() {
-        let level = parseInt(levelSelect.value); // 取得選擇的等級，須確保是數字
-        // 計算每個屬性的值
-        hpBase.textContent = calAttribute(hpBase.value, hpOther, hpBonus, level);
-        mpBase.textContent = calAttribute(mpBase.value, mpOther, mpBonus, level);   
-        dmgBase.textContent = calAttribute(dmgBase.value, adOther, dmgBonus, level);
-        arBase.textContent = calAttribute(arBase.value, arOther, arBonus, level);
-        mrBase.textContent = calAttribute(mrBase.value, mrOther, mrBonus, level);
-        spdBase.textContent = calAttribute(spdBase.value, spdOther, spdBonus, level);
-        hasteBase.textContent = calAttribute(hasteBase.value, hasteOther, hasteBonus, level);
+    function updateChampionStatus(event, ch) {
+        let level = parseInt(event.target.value); 
+        
+        let hpStatus = calAttribute(ch.hpBase, hpOther, ch.hpBonus, level);
+        let mpStatus = calAttribute(ch.mpBase, mpOther, ch.mpBonus, level);
+        let adStatus = calAttribute(ch.adBase, adOtherValue, ch.adBonus, level);
+        let apStatus = calAttribute(ch.apBase, apOtherValue, ch.apBonus, level);
+        let arStatus = calAttribute(ch.arBase, arOtherValue, ch.arBonus, level);
+        let mrStatus = calAttribute(ch.mrBase, mrOtherValue, ch.mrBonus, level);
+        let spdStatus = calAttribute(ch.spdBase, spdOtherValue, ch.spdBonus, level);
+        let hasteStatus = calAttribute(ch.hasteBase, hasteOther, ch.hasteBonus, level);
+        
+        championStatus = {
+            hpStatus, mpStatus, adStatus, apStatus, arStatus, mrStatus, spdStatus, hasteStatus
+        };
+        showChampionStatus(championStatus);
+    }
+    
+    function showChampionStatus(ch) {
+        let hpValue = document.getElementById('hpValue');
+        let mpValue = document.getElementById('mpValue');
+        let adValue = document.getElementById('adValue');
+        let apValue = document.getElementById('apValue');
+        let arValue = document.getElementById('arValue');
+        let mrValue = document.getElementById('mrValue');
+        let spdValue = document.getElementById('spdValue');
+        let hasteValue = document.getElementById('hasteValue');
+        
+        hpValue.value = hpValue.innerHTML = ch.hpStatus.toString();
+        mpValue.value = mpValue.innerHTML = ch.mpStatus.toString();
+        adValue.value = adValue.innerHTML = ch.adStatus.toString();
+        apValue.value = apValue.innerHTML = ch.apStatus.toString();
+        arValue.value = arValue.innerHTML = ch.arStatus.toString();
+        mrValue.value = mrValue.innerHTML = ch.mrStatus.toString();
+        spdValue.value = spdValue.innerHTML = ch.spdStatus.toString();
+        hasteValue.value = hasteValue.innerHTML = ch.hasteStatus.toString();
     }
     
     function calAttribute(base, other, bonus, level) {
+        base = parseFloat(base);
+        other = parseFloat(other);
+        bonus = parseFloat(bonus);
+        return Math.ceil(base + other + bonus * (level - 1) * (0.7025 + 0.0175 * (level - 1)));
+    }
+    
+    async function getChampionSkills() {
+        await Promise.all(['Q','W','E','R'].map(async (button, index) => {
+            let testForm = new FormData();
+            testForm.append("action", "getChampionSkill");
+            testForm.append("selectedChampion", selectedChampion);
+            testForm.append("button", button);
+
+            try {
+                let response = await fetch("Controller/Api/ChampionController.php", {
+                    method: "POST",
+                    body: testForm
+                });
+
+                let data = await response.json();
+                console.log(data);
+                let skillImg = document.getElementById('skillImg' + (index + 1));
+                let buttonElement = document.getElementById('button' + (index + 1));
+                let skillName = document.getElementById('skillName' + (index + 1));
+                let dmgType = document.getElementById('dmgType' + (index + 1));
+
+                buttonElement.innerHTML = data[18];
+                skillName.innerHTML = data[19];
+                skillImg.src = "Images/" + data[19] + '.webp';
+                dmgType.innerHTML = data[32];
+
+                let baseSkill = data[20];
+                let bonusSkill = data[21];
+                let adBaseSkill = data[22];
+                let adBonusSkill = data[23];
+                let apBaseSkill = data[24];
+                let apBonusSkill = data[25];
+                let adOtherBase = data[26];
+                let adOtherBonus = data[27];
+                let apOtherBase = data[28];
+                let apOtherBonus = data[29];
+                let cdBase = data[30];
+                let cdBonus = data[31];
+                let button = data[18];
+                
+                skillBase[button] = {
+                    baseSkill, bonusSkill, adBaseSkill, adBonusSkill, apBaseSkill, apBonusSkill,
+                    adOtherBase, adOtherBonus, apOtherBase, apOtherBonus, cdBase, cdBonus
+                };
+            } catch (error) {
+                console.error('Error fetching champion status:', error);
+            }
+        }));
+        ['Q', 'W', 'E', 'R'].forEach ((button) => {
+            updateSkill(skillBase, championStatus, button);
+        });
+    }
+    
+    const buttonToIndex = {
+        'Q': 1,
+        'W': 2,
+        'E': 3,
+        'R': 4
+    };
+    function updateSkill(sk, ch, button) {
+        let index = buttonToIndex[button];
+        let skillSelect = document.getElementById('skillSelect' + index);
+        let level = parseInt(skillSelect.value);
+        let dmg = document.getElementById('dmg' + index);
+        dmg.value = dmg.innerHTML = calSkill(sk[button], ch, level).toString();
+        let cd = document.getElementById('cd' + index);
+        cd.value = cd.innerHTML = calCD(sk[button], ch, level).toString();
+    }   
+    function calSkill(sk, ch, level) {
+        let baseSkill = parseFloat(sk.baseSkill); 
+        let bonusSkill = parseFloat(sk.bonusSkill);
+        let adBaseSkill = parseFloat(sk.adBaseSkill);
+        let adBonusSkill = parseFloat(sk.adBonusSkill);
+        let apBaseSkill = parseFloat(sk.apBaseSkill);
+        let apBonusSkill = parseFloat(sk.apBonusSkill);
+        let adOtherBase = parseFloat(sk.adOtherBase);
+        let adOtherBonus = parseFloat(sk.adOtherBonus);
+        let apOtherBase = parseFloat(sk.apOtherBase);
+        let apOtherBonus = parseFloat(sk.apOtherBonus);
         
-        st =  bonus * (level - 1) * (0.7025 + 0.0175 * (level-1));
-        console.log(base);
-        console.log(typeof(base));
-//        return (base + other + bonus * (level - 1) * (0.7025 + 0.0175 * (level-1))).toString();
-        return st;
+        let baseT = (baseSkill + bonusSkill * (level - 1));
+        let adT = (adBaseSkill + adBonusSkill * (level - 1));
+        let apT = (apBaseSkill + apBonusSkill * (level - 1));
+        let adOtherT = (adOtherBase + adOtherBonus * (level - 1));
+        let apOtherT = (apOtherBase + apOtherBonus * (level - 1));
+        
+        let adStatus = parseFloat(ch.adStatus);
+        let apStatus = parseFloat(ch.apStatus);
+//        let adOtherValue = parseFloat(adOtherValue);
+//        let apOtherValue = parseFloat(apOtherValue);
+        
+//        return baseT + adT * adValue + apT * apValue + adOtherT * adOtherValue + apOtherT * apOtherValue;
+        return Math.ceil(baseT + adT * adStatus + apT * apStatus);
+    }
+    function calCD(sk, ch, level) {
+        let cdBase = parseFloat(sk.cdBase);
+        let cdBonus = parseFloat(sk.cdBonus);
+        let cdT = (cdBase + cdBonus * (level - 1));
+        return cdT;
     }
 });
