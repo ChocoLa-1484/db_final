@@ -16,17 +16,16 @@ class ChampionController extends BaseController{
                     $this->getAllChampions();
                     break;
                 case 'getChampionStatus':
-<<<<<<< HEAD
                     $this->getChampionStatus();
                     break;
                 case 'getSelectedChampion':
                     $this->getSelectedChampion();
                     break;
+                case 'getChampionSkill':
+                    $this->getChampionSkill();
+                    break;
                 case 'setSelectedChampion':
                     $this->setSelectedChampion();
-=======
-                    //$this->getChampionStatus($championName);
->>>>>>> d4bbc11fc9c74cca0906468177a08cdb834940a3
                     break;
                 default:
                     break;
@@ -36,13 +35,22 @@ class ChampionController extends BaseController{
     private function getChampionStatus() {
         $selectedChampion = isset($_POST["selectedChampion"]) ? $_POST["selectedChampion"] : null;
         $result = $this->championModel->getChampionStatus($selectedChampion);
-        $this->sendOutput(json_encode($result));
+        if ($result) {
+            $this->sendOutput(json_encode($result[0]));
+        }
+    }
+    private function getChampionSkill() {
+        $selectedChampion = isset($_POST["selectedChampion"]) ? $_POST["selectedChampion"] : null;
+        $button = isset($_POST['button']) ? $_POST['button'] : null;
+        $result = $this->championModel->getChampionSkill($selectedChampion, $button);
+        if ($result) {
+            $this->sendOutput(json_encode($result[0]));
+        }
     }
     private function getAllChampions() {
         $result = $this->championModel->getAllChampions();
         $this->sendOutput(json_encode($result));
     }
-<<<<<<< HEAD
     private function getSelectedChampion() {
         if (isset($_SESSION['selectedChampion'])) {
             $selectedChampion = $_SESSION['selectedChampion'];  
@@ -55,8 +63,6 @@ class ChampionController extends BaseController{
         $selectedChampion = isset($_POST["selectedChampion"]) ? $_POST["selectedChampion"] : null;
         $_SESSION["selectedChampion"] = $selectedChampion;
     }
-=======
->>>>>>> d4bbc11fc9c74cca0906468177a08cdb834940a3
 }
 $test = new ChampionController();
 $test->handleRequest();
