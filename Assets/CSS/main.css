@@ -1,22 +1,72 @@
-.championIcon{
-    width: 300px;
-    height: auto;
-    margin-left: 40px;
-    margin-top: 40px;
-    padding: 0px;
+.table {
+  border-collapse: collapse;
 }
-
-.championName{
-    margin-left: 40px;
-    padding: 0px;
-    font-size: 20px;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bolder;
-}
-
-.champion{
-    margin: 0px;
-    padding: 0px;
+.item {
+    border: 1px solid black;
+    aspect-ratio: 1/1; /* 设置宽高比为1:1，即正方形 */
+    width: 64px; /* 设置宽度 */
+    height: 64px; /* 设置高度 */
     text-align: center;
-    display: inline-block;
 }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 260px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* 按钮样式 */
+.dropdown-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* 下拉菜单显示样式 */
+.show {
+    display: block;
+}
+
+.item-in-dropdown {
+    width: 70px;
+    height: 125px;
+    position: relative;
+}
+
+.item-in-dropdown img {
+    width: 70px; /* Set img width to 64px */
+    height: 70px; /* Set img height to 64px */
+    display: block; /* Ensure the image is treated as a block element */
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+.item-in-dropdown p {
+    text-align: center; /* Center the text */
+    margin-top: 5px; /* Adjust top margin as needed */
+}
+
+.row {
+    display: flex;
+    justify-content: space-between; /* Adjust as needed for spacing between items */
+}
+
+.panel {
+    width: 50%; /* Adjust the width based on your layout */
+    box-sizing: border-box;
+    padding: 10px; /* Add padding as needed */
+}
+
+#rightPanel {
+    float: right;
+}
+
+#leftPanel {
+    float: left;
+}
+
+/* Add any additional styling as needed */

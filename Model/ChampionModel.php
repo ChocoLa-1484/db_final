@@ -13,5 +13,9 @@ class ChampionModel extends Database{
         $result = $this->query("SELECT ChampionName FROM champion");
         return $result;
     }
-    
+    public function updateChampionItem($selectedChampion, $itemName, $itemNumber) {
+        $result = $this->query("UPDATE champion SET item{$itemNumber} = ? WHERE championName = ?", [$itemName, $selectedChampion]);
+//        $result = $this->query("SELECT ChampionName FROM champion");
+        return $result;
+    }
 }

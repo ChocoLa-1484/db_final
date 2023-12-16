@@ -1,21 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {   
     generateLevel();
     generateSkillLevel();
+    getAllItems();
     getSelectedChampion();
+
+    let selectedChampion;
 
     let championBase;
     let skillBase = {};
     let championStatus;
     
+    let itemNumber = 1;
+    
     function generateLevel() {
         for (let level = 1; level <= 18; level++) {
             let levelSelect = document.getElementById('levelSelect');
+            
             levelSelect.addEventListener('change', (event) => {
                 updateChampionStatus(event, championBase);
                 ['Q', 'W', 'E', 'R'].forEach ((button) => {
                     updateSkill(skillBase, championStatus, button);
                 });
-            });
+            });    
             
             let option = document.createElement('option');
             option.innerHTML = level;
@@ -48,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    let selectedChampion;
     function getSelectedChampion() {
         let selectedChampionElement = document.getElementById('selectedChampion');
         let selectedChampionImg = document.getElementById('selectedChampionImg');
@@ -192,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 let data = await response.json();
-                console.log(data);
+//                console.log(data);
                 let skillImg = document.getElementById('skillImg' + (index + 1));
                 let buttonElement = document.getElementById('button' + (index + 1));
                 let skillName = document.getElementById('skillName' + (index + 1));
@@ -276,5 +281,82 @@ document.addEventListener('DOMContentLoaded', function() {
         let cdBonus = parseFloat(sk.cdBonus);
         let cdT = (cdBase + cdBonus * (level - 1));
         return cdT;
+    }
+    
+    function generateItems(items) {
+        let dropdown = document.getElementById("item-dropdown-content");
+        let htmlContent = '';
+        
+        items.forEach((item, index) => {
+            if (index % 3 === 0) {
+                htmlContent += '<div class="row">';
+            }
+            htmlContent += `<div class="item-in-dropdown" data-value="${item[0]}">
+                                <img src="Images/${item[0]}.webp" alt="None">
+                                <p>${item[0]}</p>
+                            </div>`;
+            if ((index + 1) % 3 === 0 || index === items.length - 1) {
+                htmlContent += '</div>';
+            }
+        });
+        
+        dropdown.innerHTML = htmlContent;
+        
+        let itemsInDropdown = document.querySelectorAll('.item-in-dropdown');
+        itemsInDropdown.forEach(item => {
+            item.addEventListener('click', handleItemClick);
+        });
+    }
+    
+    function getAllItems() {
+        let testForm = new FormData();
+        testForm.append("action", "getAllItems");
+        fetch("Controller/Api/ItemController.php", {
+            method: "POST",
+            body: testForm
+        })
+        .then(response => response.json())
+        .then(data => {
+//            console.log(data);
+            generateItems(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
+    let dropdownBtn = document.getElementById("item-dropdown-button");
+    dropdownBtn.addEventListener('click', () => {
+        toggleDropdown();
+    });
+
+    function toggleDropdown() {
+        let dropdown = document.getElementById("item-dropdown-content");
+        dropdown.classList.toggle('show');
+    }
+    
+    function handleItemClick(event) {
+        let dataValue = event.currentTarget.getAttribute('data-value');
+        console.log('Clicked item:', dataValue);
+        updateChampionItem(dataValue);
+    }
+    
+    function updateChampionItem(itemName) {
+        let testForm = new FormData();
+        testForm.append("action", "updateChampionItem");
+        testForm.append("selectedChampion", selectedChampion);
+        testForm.append("itemName", itemName);
+        testForm.append("itemNumber", itemNumber);
+        fetch("Controller/Api/ChampionController.php", {
+            method: "POST",
+            body: testForm
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 });
