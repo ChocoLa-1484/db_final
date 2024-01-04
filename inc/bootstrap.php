@@ -8,6 +8,6 @@ require_once PROJECT_ROOT_PATH . "/Model/ChampionModel.php";
 require_once PROJECT_ROOT_PATH . "/Model/ItemModel.php";
 
 define('DB_HOST', 'localhost');
-define('DB_USERNAME', 'pass');
+define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'pass');
 define('DB_DATABASE_NAME', 'db_final');
