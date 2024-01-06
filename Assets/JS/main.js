@@ -360,9 +360,8 @@ document.addEventListener('DOMContentLoaded', function() {
             window.alert("最多6個裝備");
             return;
         }
-//        getItemStatus(itemName);
-        championItems.push(itemName);
-        updateChampionItems();
+        getItemStatus(itemName);
+        
     }
     
     function getItemStatus(itemName) {
@@ -377,6 +376,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            
+            championItems.push(itemName);
+            updateChampionItems();
         })
         .catch(error => {
             console.error('Error:', error);
