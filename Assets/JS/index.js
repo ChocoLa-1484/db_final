@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     championItem.className = "champion";
                     championItemIcon.innerHTML = '<img src="Images/' + championName + '.jpg" class="championIcon">';
-                    championItemName.innerHTML = '<p class="championName">' + championName + '</p>';
+                    championItemName.innerHTML = '<h1 class="championName">' + championName + '</h1>';
                     
                     championItem.appendChild(championItemIcon);
                     championItem.appendChild(championItemName);
