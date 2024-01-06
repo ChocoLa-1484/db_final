@@ -1,0 +1,64 @@
+.topnav {
+    background-color: #333;
+    overflow: hidden;    
+}
+  
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+  
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+table {
+    border-collapse: collapse;
+    background-color: #dddddd;
+    font-size: 30px;
+    position: relative; 
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+th {
+    width: 80px;
+    text-align: center;
+}
+
+td {
+    width: 80px;
+    text-align: center;
+    height: 60px;
+}
+
+#itemName {
+    width: 200px;
+    text-align: center;
+}
+
+input {
+    width: 68px;
+    vertical-align: middle;
+}
+
+#addButton {
+    position: relative; 
+    top: 50%;
+    left: 5%;
+    transform: translate(-50%, -70%);
+    height: 40px;
+}

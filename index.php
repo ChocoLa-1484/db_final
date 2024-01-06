@@ -7,6 +7,13 @@
         <link rel="shortcut icon" href="#">
         <link rel="stylesheet" href="Assets/CSS/index.css">
     </head>
-    <body background="Images/Summoner's rift.webp" id="championInfo">
+    <body background="Images/Summoner's rift.webp">
+        <div class="topnav">
+            <a href="index.php">Choose champion</a>
+            <a href="item_modify.php">Modify items</a>
+            <a href="item_add.php">Add items</a>
+        </div>
+
+        <div id="championInfo"></div>
     </body>
 </html>

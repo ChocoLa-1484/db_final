@@ -8,9 +8,15 @@
         <link rel="stylesheet" href="Assets/CSS/main.css">
     </head>
     <body background="Images/Shop.jpg">
+        <div class="topnav">
+            <a href="index.php">Choose champion</a>
+            <a href="item_modify.php">Modify items</a>
+            <a href="item_add.php">Add items</a>
+        </div>
+
         <div id="leftPanel" class="panel">
             <div class="champion-panel">
-                <h2 id="selectedChampion"></h2>
+                <h1 id="selectedChampion"></h1>
                 <img id="selectedChampionImg" alt="None"></img>        
             </div>    
     
@@ -101,7 +107,7 @@
         </div>
 
         <div id="rightPanel" class="panel">
-            <h2>Items</h2>
+            <h1>Items</h1>
             <table border="1">
                 <tr>
                     <td class="item" id="item1"></td>
