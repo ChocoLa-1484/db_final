@@ -15,6 +15,9 @@ class ItemController extends BaseController{
                 case 'getAllItems':
                     $this->getAllItems();
                     break;
+                case 'getItemStatus':
+                    $this->getItemStatus();
+                    break;
                 default:
                     break;
             }
@@ -24,6 +27,13 @@ class ItemController extends BaseController{
         $result = $this->ItemModel->getAllItems();
         if ($result) {
             $this->sendOutput(json_encode($result));
+        }
+    }
+    private function getItemStatus() {
+        $itemName = isset($_POST["itemName"]) ?? null;
+        $result = $this->ItemModel->getItemStatus($itemName);
+        if ($result) {
+            $this->sendOutput(json_encode($result[0]));
         }
     }
 }

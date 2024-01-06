@@ -110,14 +110,14 @@
             <h1>Items</h1>
             <table border="1">
                 <tr>
+                    <td class="item" id="item0"></td>
                     <td class="item" id="item1"></td>
                     <td class="item" id="item2"></td>
-                    <td class="item" id="item3"></td>
                 </tr>
                 <tr>
+                    <td class="item" id="item3"></td>
                     <td class="item" id="item4"></td>
                     <td class="item" id="item5"></td>
-                    <td class="item" id="item6"></td>
                 </tr>
             </table>
             <br>

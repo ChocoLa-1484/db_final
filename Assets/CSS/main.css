@@ -101,3 +101,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+h1 {
+    color: white;
+}

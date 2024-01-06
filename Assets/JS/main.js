@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {   
     generateLevel();
     generateSkillLevel();
+    
     getAllItems();
     getSelectedChampion();
 
@@ -9,8 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let championBase;
     let skillBase = {};
     let championStatus;
-    
-    let itemNumber = 1;
     
     function generateLevel() {
         for (let level = 1; level <= 18; level++) {
@@ -120,23 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error fetching champion status:', error);
         });
     }
-    
-    let item1 = document.getElementById('item1');
-    let item2 = document.getElementById('item2');
-    let item3 = document.getElementById('item3');
-    let item4 = document.getElementById('item4');
-    let item5 = document.getElementById('item5');
-    let item6 = document.getElementById('item6');
     // 2科小符文適性 18 * 0.6 1科物防
     let hpOther = 0, mpOther = 0, adOtherValue = 18 * 0.6, apOtherValue = 0, arOtherValue = 6, mrOtherValue = 0, spdOtherValue = 0, hasteOther = 0;
-    function getItem() {
-//        item1.textContent = data[14];
-//        item2.textContent = data[15];
-//        item3.textContent = data[16];
-//        item4.textContent = data[17];
-//        item5.textContent = data[18];
-//        item6.textContent = data[19];
-    }
     
     function updateChampionStatus(event, ch) {
         let level = parseInt(event.target.value); 
@@ -203,24 +187,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 let skillName = document.getElementById('skillName' + (index + 1));
                 let dmgType = document.getElementById('dmgType' + (index + 1));
 
-                buttonElement.innerHTML = data[18];
-                skillName.innerHTML = data[19];
-                skillImg.src = "Images/" + data[19] + '.webp';
-                dmgType.innerHTML = data[32];
+                buttonElement.innerHTML = data[12];
+                skillName.innerHTML = data[13];
+                skillImg.src = "Images/" + data[13] + '.webp';
+                dmgType.innerHTML = data[26];
 
-                let baseSkill = data[20];
-                let bonusSkill = data[21];
-                let adBaseSkill = data[22];
-                let adBonusSkill = data[23];
-                let apBaseSkill = data[24];
-                let apBonusSkill = data[25];
-                let adOtherBase = data[26];
-                let adOtherBonus = data[27];
-                let apOtherBase = data[28];
-                let apOtherBonus = data[29];
-                let cdBase = data[30];
-                let cdBonus = data[31];
-                let button = data[18];
+                let baseSkill = data[14];
+                let bonusSkill = data[15];
+                let adBaseSkill = data[16];
+                let adBonusSkill = data[17];
+                let apBaseSkill = data[18];
+                let apBonusSkill = data[19];
+                let adOtherBase = data[20];
+                let adOtherBonus = data[21];
+                let apOtherBase = data[22];
+                let apOtherBonus = data[23];
+                let cdBase = data[24];
+                let cdBonus = data[25];
+                let button = data[12];
                 
                 skillBase[button] = {
                     baseSkill, bonusSkill, adBaseSkill, adBonusSkill, apBaseSkill, apBonusSkill,
@@ -338,20 +322,59 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleItemClick(event) {
         let dataValue = event.currentTarget.getAttribute('data-value');
         console.log('Clicked item:', dataValue);
-        updateChampionItem(dataValue);
+        addChampionItem(dataValue);
     }
     
-    function updateChampionItem(itemName) {
+    let doran = false;
+    let unique = false;
+    let boots = false;
+    let championItems = [];
+    
+    function generateChampionItems() {
+        for (let i = 0; i < 6; i++) {
+            let item = document.getElementById(`item${i}`);
+            item.addEventListener('click', () => {
+                deleteChampionItem(i);
+            });
+        }
+    }
+    generateChampionItems();
+    
+    function updateChampionItems() {
+        for (let i = 0; i < 6; i++) {
+            let item = document.getElementById(`item${i}`);
+            let itemName = championItems[i];
+            if (itemName) {
+                item.innerHTML = `<img src="Images/${itemName}.webp" alt="None" data-value="${itemName}">`;
+            } else {
+                item.innerHTML = '';
+            }
+        }
+    }
+    function deleteChampionItem(indexToDelete) {        
+        championItems.splice(indexToDelete, 1);
+        updateChampionItems();
+    }
+    function addChampionItem(itemName) {
+        if(championItems.length >= 6) {
+            window.alert("最多6個裝備");
+            return;
+        }
+//        getItemStatus(itemName);
+        championItems.push(itemName);
+        updateChampionItems();
+    }
+    
+    function getItemStatus(itemName) {
         let testForm = new FormData();
-        testForm.append("action", "updateChampionItem");
-        testForm.append("selectedChampion", selectedChampion);
+        testForm.append("action", "getItemStatus");
         testForm.append("itemName", itemName);
-        testForm.append("itemNumber", itemNumber);
-        fetch("Controller/Api/ChampionController.php", {
+
+        fetch("Controller/Api/ItemController.php", {
             method: "POST",
             body: testForm
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
             console.log(data);
         })

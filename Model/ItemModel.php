@@ -5,4 +5,8 @@ class ItemModel extends Database{
         $result = $this->query("SELECT * FROM item");
         return $result;
     }
+    public function getItemStatus($itemName) {
+        $result = $this->query("SELECT * FROM item WHERE ItemName = ?", [$itemName]);
+        return $result;
+    }
 }
