@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.text())
         .then(data => {
-            selectedChampionElement.innerHTML = 'Selected Champion: ' + data;
+            selectedChampionElement.innerHTML = data;
             selectedChampionImg.src = 'Images/' + data + '.webp';
             selectedChampion = data;
             getChampionBase();
@@ -288,14 +288,14 @@ document.addEventListener('DOMContentLoaded', function() {
         let htmlContent = '';
         
         items.forEach((item, index) => {
-            if (index % 3 === 0) {
+            if (index % 6 === 0) {
                 htmlContent += '<div class="row">';
             }
             htmlContent += `<div class="item-in-dropdown" data-value="${item[0]}">
                                 <img src="Images/${item[0]}.webp" alt="None">
                                 <p>${item[0]}</p>
                             </div>`;
-            if ((index + 1) % 3 === 0 || index === items.length - 1) {
+            if ((index + 1) % 6 === 0 || index === items.length - 1) {
                 htmlContent += '</div>';
             }
         });
