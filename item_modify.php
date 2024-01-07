@@ -12,14 +12,12 @@
             <a href="index.php">Choose champion</a>
             <a href="item_modify.php">Modify items</a>
             <a href="item_add.php">Add items</a>
+            <a href="skill_add.php">Add skills</a>
         </div>
 
         <div class="itemInfo">
+            <h1 id="itemNum"></h1>
             <table border="1" id="itemInfo"></table>
         <div>
-
-        <input type="button" value="Modify" id="modifyButton">
-        <br><br>
-        <input type="button" value="Delete" id="deleteButton">
     </body>
 </html>

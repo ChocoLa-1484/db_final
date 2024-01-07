@@ -12,6 +12,7 @@
             <a href="index.php">Choose champion</a>
             <a href="item_modify.php">Modify items</a>
             <a href="item_add.php">Add items</a>
+            <a href="skill_add.php">Add skills</a>
         </div>
 
         <div id="leftPanel" class="panel">
