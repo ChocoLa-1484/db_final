@@ -51,7 +51,7 @@
             <br><br><br>
             <table border="1" id="skillsTable">
                 <tr>
-                    <th>Skill Img</th>
+                    <th>Skill Icon</th>
                     <th>Button</th>
                     <th>Skill Name</th>
                     <th>Damage</th>

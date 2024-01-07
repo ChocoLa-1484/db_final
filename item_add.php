@@ -7,7 +7,7 @@
         <link rel="shortcut icon" href="#">
         <link rel="stylesheet" href="Assets/CSS/item_add.css">
     </head>
-    <body background="Images/Shop interface.webp">
+    <body background="Images/Shop2.jpg">
         <div class="topnav">
             <a href="index.php">Choose champion</a>
             <a href="item_modify.php">Modify items</a>

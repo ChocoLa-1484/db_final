@@ -7,7 +7,7 @@
         <link rel="shortcut icon" href="#">
         <link rel="stylesheet" href="Assets/CSS/item_modify.css">
     </head>
-    <body background="Images/Shop interface.webp">
+    <body background="Images/Shop2.jpg">
         <div class="topnav">
             <a href="index.php">Choose champion</a>
             <a href="item_modify.php">Modify items</a>
@@ -15,23 +15,7 @@
         </div>
 
         <div class="itemInfo">
-            <table border="1" id="itemInfo">
-                <tr>
-                    <th>ItemIcon</th>
-                    <th>ItemName</th>
-                    <th>HP</th>      
-                    <th>MP</th>         
-                    <th>AD</th>     
-                    <th>AP</th>
-                    <th>AR</th>
-                    <th>MR</th>
-                    <th>SPD</th>
-                    <th>Haste</th>
-                    <th>Unique</th>
-                    <th>Boots</th>
-                    <th>Doran</th>
-                </tr>
-            </table>
+            <table border="1" id="itemInfo"></table>
         <div>
 
         <input type="button" value="Modify" id="modifyButton">
