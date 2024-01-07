@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/DBfinal/main.php</file>
             <file>file:/C:/xampp/htdocs/DBfinal/Assets/JS/main.js</file>
+            <file>file:/C:/xampp/htdocs/DBfinal/Model/ItemModel.php</file>
+            <file>file:/C:/xampp/htdocs/DBfinal/inc/bootstrap.php</file>
+            <file>file:/C:/xampp/htdocs/DBfinal/Controller/Api/ItemController.php</file>
         </group>
     </open-files>
 </project-private>
