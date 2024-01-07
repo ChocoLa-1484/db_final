@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => { 
     let itemForm = document.getElementById('itemForm');
     let addButton = document.getElementById('addButton');
