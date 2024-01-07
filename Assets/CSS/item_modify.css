@@ -46,7 +46,7 @@ td {
     height: 60px;
 }
 
-#itemName {
+.itemName {
     width: 200px;
     text-align: center;
 }
@@ -56,18 +56,13 @@ input {
     vertical-align: middle;
 }
 
-#modifyButton {
-    position: relative; 
-    top: 40%;
-    left: 5%;
-    transform: translate(-50%, -70%);
-    height: 40px;
-}
-
-#deleteButton {
-    position: relative; 
-    top: 60%;
-    left: 5%;
-    transform: translate(-50%, -70%);
-    height: 40px;
+#itemNum {
+    text-align: center;
+    font-weight: bolder;
+    text-shadow:-1px -1px 2px black,
+                1px -1px 2px black,
+                -1px 1px 2px black,
+                1px 1px 2px black,
+                2px 2px 2px black;
+    color: white;
 }

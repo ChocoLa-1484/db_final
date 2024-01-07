@@ -6,6 +6,7 @@ require_once PROJECT_ROOT_PATH . "/Controller/Api/BaseController.php";
 require_once PROJECT_ROOT_PATH . "/Model/Database.php";
 require_once PROJECT_ROOT_PATH . "/Model/ChampionModel.php";
 require_once PROJECT_ROOT_PATH . "/Model/ItemModel.php";
+require_once PROJECT_ROOT_PATH . "/Model/SkillModel.php";
 
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'pass');

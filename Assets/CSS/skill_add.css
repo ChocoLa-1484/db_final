@@ -28,7 +28,7 @@ body {
 table {
     border-collapse: collapse;
     background-color: #dddddd;
-    font-size: 30px;
+    font-size: 20px;
     position: relative; 
     top: 20px;
     left: 50%;
@@ -36,18 +36,18 @@ table {
 }
 
 th {
-    width: 80px;
+    width: 70px;
     text-align: center;
 }
 
 td {
-    width: 80px;
+    width: 70px;
     text-align: center;
     height: 60px;
 }
 
-#itemName {
-    width: 200px;
+#skillName {
+    width: 100px;
     text-align: center;
 }
 
@@ -58,7 +58,8 @@ input {
 
 #addButton {
     position: relative; 
-    top: 40px;
-    left: 50px;
+    top: 50%;
+    left: 5%;
+    transform: translate(-50%, -70%);
     height: 40px;
 }

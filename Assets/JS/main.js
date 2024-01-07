@@ -189,9 +189,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     function judge(itemName, uni, boo, dor) {
         if (championItems.includes(itemName))   return "已經有這件裝備了";
-        if (uni === 1 && unique === 1)  return "只有有一件傳奇裝備";
-        if (boo === 1 && boots === 1)  return "只有有一雙鞋子";
-        if (dor === 1 && doran === 1)  return "只有有一把多蘭裝備";
+        if (uni === 1 && unique === 1)  return "只能有一件傳奇裝備";
+        if (boo === 1 && boots === 1)  return "只能有一雙鞋子";
+        if (dor === 1 && doran === 1)  return "只能有一件多蘭裝備";
         return "ok";
     }
     
@@ -422,4 +422,5 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Clicked item:', dataValue);
         addChampionItem(dataValue);
     }
+
 });
