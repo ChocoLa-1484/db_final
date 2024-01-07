@@ -30,7 +30,8 @@ class ItemController extends BaseController{
         }
     }
     private function getItemStatus() {
-        $itemName = isset($_POST["itemName"]) ?? null;
+        $itemName = $_POST["itemName"] ?? null;
+
         $result = $this->ItemModel->getItemStatus($itemName);
         if ($result) {
             $this->sendOutput(json_encode($result[0]));
