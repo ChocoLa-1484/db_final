@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function deleteChampionItem(indexToDelete) {
         let itemName = championItems[indexToDelete];
         championItems.splice(indexToDelete, 1);
-        
+       
         let testForm = new FormData();
         testForm.append("action", "getItemStatus");
         testForm.append("itemName", itemName);
@@ -146,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.alert("最多6個裝備");
             return;
         }
-        
         let testForm = new FormData();
         testForm.append("action", "getItemStatus");
         testForm.append("itemName", itemName);
@@ -157,19 +156,19 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            itemStatus.hpOther += data[1];
-            itemStatus.mpOther += data[2];
-            itemStatus.adOtherValue += data[3];
-            itemStatus.apOtherValue += data[4];
-            itemStatus.arOtherValue += data[5];
-            itemStatus.mrOtherValue += data[6];
-            itemStatus.spdOtherValue += data[7];
-            itemStatus.hasteOther += data[8];
             let uni = data[9];
             let boo = data[10];
             let dor = data[11];
             let ret = judge (itemName, uni, boo, dor);
             if(ret === "ok") {
+                itemStatus.hpOther += data[1];
+                itemStatus.mpOther += data[2];
+                itemStatus.adOtherValue += data[3];
+                itemStatus.apOtherValue += data[4];
+                itemStatus.arOtherValue += data[5];
+                itemStatus.mrOtherValue += data[6];
+                itemStatus.spdOtherValue += data[7];
+                itemStatus.hasteOther += data[8];
                 championItems.push(itemName);
                 unique = (unique === uni) ? 0 : 1;
                 boots = (boots === boo) ? 0 : 1;
